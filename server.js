@@ -13,6 +13,7 @@ var jwt = require('jsonwebtoken');
 var cors = require('cors');
 var User = require('./Users');
 var Movie = require('./Movies');
+var Reviews = require('./Reviews');
 
 var app = express();
 app.use(cors());
@@ -161,17 +162,38 @@ router.delete('/movie', function(req, res){
 
 //get gets a movie
 router.get('/movie', function(req,res){
-    //if(!req.body.title){
-      //  res.json({success: false, msg: 'Please add the title of the movie you want to get'})
-    //}
-    //else{
+    if(req.query.title === undefined) {
+
         Movie.find({},
-            {_id:0,title:1, year:1, genre:1, actorOne:1, actorTwo:1, actorThree:1}, function(err,movie){
-            if(err) res.json(err)
-            res.json({success: true, msg: movie})
-        })
-    //}
+            {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
+                if (err) res.json(err)
+                res.json({success: true, msg: movie})
+            })
+    }
+    else{
+        Movie.findOne({title: req.query.title},
+            {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
+                if (err) res.json(err)
+                res.json({success: true, msg: movie})
+            })
+    }
 })
+
+
+router.post('/reviews', function(req,res){
+    var newReview = new Reviews();
+    newReview.name = req.body.name;
+    newReview.review = req.body.review;
+    newReview.rating = req.body.rating;
+
+    newReview.save(function(err, newReview) {
+        if(err) res.send(err);
+        res.json({success: true, msg: "Review Added"})
+    });
+
+})
+
+
 
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
