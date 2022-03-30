@@ -188,10 +188,13 @@ router.post('/reviews', function(req,res){
     var newReview = new Reviews();
     //newReview.name = req.body.name;
     var userToken = req.body.token;
-    var user;
+    console.log(userToken);
+    var user = null;
     if(userToken !== null){
         try{
+            console.log("got above the decode line");
             user = jwt.decode(userToken, {complete: true});
+            console.log("right after the decode line");
         }catch (e) {
             res.json(e);
         }
