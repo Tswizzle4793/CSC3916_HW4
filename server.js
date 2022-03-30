@@ -199,7 +199,7 @@ router.post('/reviews', function(req,res){
     console.log(userToken);
     //var user = null;
 
-    const user = parseJwt(userToken);
+    //const user = parseJwt(userToken);
     /*if(userToken !== null){
         try{
             console.log("got above the decode line");
@@ -213,8 +213,8 @@ router.post('/reviews', function(req,res){
             res.json(e);
         }
     }*/
-    console.log("token things      " + user);
-    newReview.name = user.username
+   // console.log("token things      " + user);
+    //newReview.name = user.username
     newReview.review = req.body.review;
     newReview.rating = req.body.rating;
 
