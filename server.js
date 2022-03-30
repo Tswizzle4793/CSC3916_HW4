@@ -191,7 +191,7 @@ router.post('/reviews', function(req,res){
     var user;
     if(userToken !== null){
         try{
-           user = JSON.parse(userToken);
+           user = JSON.parse(atob(userToken.split('.')[1]));
         }catch (e) {
             res.json(e);
         }
