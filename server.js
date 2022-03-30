@@ -162,6 +162,7 @@ router.delete('/movie', function(req, res){
 
 //get gets a movie
 router.get('/movie', function(req,res){
+    console.log("in the movie route before the timeout")
     if(req.query.title === undefined) {
 
         Movie.find({},
