@@ -178,7 +178,7 @@ router.get('/movie', function(req,res){
             })
     }
     else if(req.query.review === true){
-        res.json(Movie.aggregate( [
+        Movie.aggregate( [
             {
                 $lookup:
                     {
@@ -189,7 +189,10 @@ router.get('/movie', function(req,res){
                     }
 
             }
-        ]))
+        ],function(err, movie){
+            if(err) res.json(err)
+            res.json({success: true, msg: movie})
+        })
 
     }
 })
