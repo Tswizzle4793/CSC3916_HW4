@@ -190,7 +190,9 @@ router.post('/reviews', function(req,res){
     console.log(req.body.token);
     var userToken = req.body.token;
     userToken = userToken.split('.')[1];
-    console.log("only the middle part     " + userToken);
+    console.log("only the middle part     " + userToken +"   end of token");
+    var userData = atob(userToken);
+    console.log("decoded user data  <><><>  " + userData);
     //var userToken = JSON.stringify(req.body.token);
     //console.log(userToken);
     //var user = null;
