@@ -179,9 +179,10 @@ router.get('/movie', function(req,res){
                 res.json({success: true, msg: movie})
             })
     }
-    else if(req.query.review === true){
+    //else if(req.query.review === true){
+    else{
         console.log("got to the else if with the review query thing")
-        var result = Movie.aggregate([
+        const result = Movie.aggregate([
             {
                 $lookup:
                     {
