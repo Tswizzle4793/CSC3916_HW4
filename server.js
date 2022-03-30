@@ -179,7 +179,23 @@ router.get('/movie', function(req,res){
     }
     else if(req.query.review === true){
         console.log("got to the else if with the review query thing")
-        Movie.aggregate([
+        Movie.findOne({title:req.query.title}, function(err,movie){
+            if(err) res.json(err)
+            movie.aggregate([
+                {
+                    $lookup:
+                        {
+                            from: "reviews",
+                            localField:"title",
+                            foreignFeild:"title",
+                            as: "movie_reviews"
+                        }
+                }
+            ])
+            res.json({success:true, msg: movie});
+        })
+
+        /*Movie.aggregate([
             {
                 $lookup:
                     {
@@ -193,7 +209,7 @@ router.get('/movie', function(req,res){
         ].then(r  => function(err, r){
             if (err) res.json(err)
             res.json({success: true, msg: r})
-        }))
+        }))*/
 
     }
 })
