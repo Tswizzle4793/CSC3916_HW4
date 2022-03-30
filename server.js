@@ -183,24 +183,35 @@ router.get('/movie', function(req,res){
     }
 })
 
+function parseJwt(token){
+    try{
+        return JSON.parse(atob(token.split('.')[1]));
+    }catch(e){
+        return null;
+    }
+};
 
 router.post('/reviews', function(req,res){
     var newReview = new Reviews();
     //newReview.name = req.body.name;
     var userToken = req.body.token;
     console.log(userToken);
-    var user = null;
-    if(userToken !== null){
+    //var user = null;
+
+    const user = parseJwt(userToken);
+    /*if(userToken !== null){
         try{
             console.log("got above the decode line");
             //user = jwt.decode(userToken);
-            user = JSON.parse(atob(userToken.split('.')[1]));
+            //user = JSON.parse(atob(userToken.split('.')[1]));
+
+
 
             console.log("right after the decode line");
         }catch (e) {
             res.json(e);
         }
-    }
+    }*/
     console.log("token things      " + user);
     newReview.name = user.username
     newReview.review = req.body.review;
