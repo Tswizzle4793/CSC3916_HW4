@@ -181,7 +181,7 @@ router.get('/movie', function(req,res){
     }
     else if(req.query.review === true){
         console.log("got to the else if with the review query thing")
-        Movie.aggregate([
+        var result = Movie.aggregate([
             {
                 $lookup:
                     {
@@ -192,11 +192,8 @@ router.get('/movie', function(req,res){
                     }
 
             }
-        ],function(err,movie){
-            if(err) res.json(err)
-            res.json(movie);
-        });
-        //res.json({test: "this is a test message"});
+        ]);
+        res.json({test: result});
     }
     console.log("got to the bottom");
 })
