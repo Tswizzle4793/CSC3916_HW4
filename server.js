@@ -178,7 +178,18 @@ router.get('/movie', function(req,res){
             })
     }
     else if(req.query.review === true){
-        //the look up thing
+        res.json(Movie.aggregate( [
+            {
+                $lookup:
+                    {
+                        from: "reviews",
+                        localField: "title",
+                        foreignField: "title",
+                        as: "movie_reviews"
+                    }
+
+            }
+        ]))
 
     }
 })
@@ -186,6 +197,7 @@ router.get('/movie', function(req,res){
 
 router.post('/reviews', function(req,res){
 
+    //no error checking at this point
     var newReview = new Reviews();
     var userToken = req.body.token;
     userToken = userToken.split('.')[1];
@@ -194,7 +206,7 @@ router.post('/reviews', function(req,res){
     //console.log("decoded user data  <><><>  " + userData);
     var jsonUserData = JSON.parse(userData);
 
-    newReview.title = req.query.title;
+    newReview.title = req.query.title; //this is what will be used to track what movie the review belongs to
     newReview.name = jsonUserData.username;
     newReview.review = req.body.review;
     newReview.rating = req.body.rating;
