@@ -192,12 +192,10 @@ router.get('/movie', function(req,res){
                     }
 
             }
-        ]).exec((err,result) => {
-            if(err) res.json(err);
-            if(result) res.json(result);
-        })
+        ]);
 
     }
+    console.log("got to the bottom");
 })
 
 
