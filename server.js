@@ -179,7 +179,7 @@ router.get('/movie', function(req,res){
                 res.json({success: true, msg: movie})
             })
     }
-    else{
+    else if(req.query.review === true){
         console.log("got to the else if with the review query thing")
         Movie.aggregate([
             {
@@ -192,9 +192,11 @@ router.get('/movie', function(req,res){
                     }
 
             }
-        ]);
-        res.json({test:"this is a test response message"})
-
+        ],function(err,movie){
+            if(err) res.json(err)
+            res.json(movie);
+        });
+        //res.json({test: "this is a test message"});
     }
     console.log("got to the bottom");
 })
