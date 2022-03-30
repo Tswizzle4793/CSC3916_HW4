@@ -170,19 +170,34 @@ router.get('/movie', function(req,res){
                 res.json({success: true, msg: movie})
             })
     }
-    else{
+    else if(req.query.review === false){
         Movie.findOne({title: req.query.title},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
                 if (err) res.json(err)
                 res.json({success: true, msg: movie})
             })
     }
+    else if(req.query.review === true){
+        //the look up thing
+
+    }
 })
 
 
 router.post('/reviews', function(req,res){
     var newReview = new Reviews();
-    newReview.name = req.body.name;
+    //newReview.name = req.body.name;
+    var userToken = req.body.token;
+    var user;
+    if(userToken !== null){
+        try{
+           user = JSON.parse(userToken);
+        }catch (e) {
+            res.json(e);
+        }
+    }
+
+    newReview.name = user.username
     newReview.review = req.body.review;
     newReview.rating = req.body.rating;
 
