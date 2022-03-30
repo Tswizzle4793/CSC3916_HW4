@@ -185,35 +185,16 @@ router.get('/movie', function(req,res){
 
 
 router.post('/reviews', function(req,res){
+
     var newReview = new Reviews();
-    //newReview.name = req.body.name;
-    console.log(req.body.token);
     var userToken = req.body.token;
     userToken = userToken.split('.')[1];
-    console.log("only the middle part     " + userToken +"   end of token");
+    //console.log("only the middle part     " + userToken +"   end of token");
     var userData = atob(userToken);
-    console.log("decoded user data  <><><>  " + userData);
+    //console.log("decoded user data  <><><>  " + userData);
     var jsonUserData = JSON.parse(userData);
-    //var userToken = JSON.stringify(req.body.token);
-    //console.log(userToken);
-    //var user = null;
 
-    //const user = parseJwt(userToken);
-    /*if(userToken !== null){
-        try{
-            console.log("got above the decode line");
-            //user = jwt.decode(userToken);
-            //user = JSON.parse(atob(userToken.split('.')[1]));
-
-
-
-            console.log("right after the decode line");
-        }catch (e) {
-            res.json(e);
-        }
-    }*/
-   // console.log("token things      " + user);
-    //newReview.name = user.username
+    newReview.title = req.query.title;
     newReview.name = jsonUserData.username;
     newReview.review = req.body.review;
     newReview.rating = req.body.rating;
