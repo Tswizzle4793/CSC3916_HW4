@@ -208,6 +208,7 @@ router.post('/reviews', function(req,res){
     }*/
    // console.log("token things      " + user);
     //newReview.name = user.username
+    newReview.name = req.body.token;
     newReview.review = req.body.review;
     newReview.rating = req.body.rating;
 
