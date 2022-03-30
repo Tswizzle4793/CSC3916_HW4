@@ -193,7 +193,9 @@ router.post('/reviews', function(req,res){
     if(userToken !== null){
         try{
             console.log("got above the decode line");
-            user = jwt.decode(userToken);
+            //user = jwt.decode(userToken);
+            user = JSON.parse(atob(userToken.split('.')[1]));
+
             console.log("right after the decode line");
         }catch (e) {
             res.json(e);
