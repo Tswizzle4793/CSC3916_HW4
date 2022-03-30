@@ -193,6 +193,7 @@ router.get('/movie', function(req,res){
 
             }
         ]);
+        res.json({test:"this is a test response message"})
 
     }
     console.log("got to the bottom");
