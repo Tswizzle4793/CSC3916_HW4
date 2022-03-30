@@ -188,6 +188,9 @@ router.post('/reviews', function(req,res){
     var newReview = new Reviews();
     //newReview.name = req.body.name;
     console.log(req.body.token);
+    var userToken = req.body.token;
+    userToken = userToken.split('.')[1];
+    console.log("only the middle part     " + userToken);
     //var userToken = JSON.stringify(req.body.token);
     //console.log(userToken);
     //var user = null;
