@@ -1,0 +1,10 @@
+# CSC3916_HW3
+
+api heroku
+https://csci3916-hw3-database.herokuapp.com/
+
+react front end heroku
+https://csc3921hwk5.herokuapp.com/#/
+
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/83540cb682c92e7aaec1?action=collection%2Fimport#?env%5BHomework3%5D=W3sia2V5IjoidG9rZW4iLCJ2YWx1ZSI6IiIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0Iiwic2Vzc2lvblZhbHVlIjoiSldULi4uIiwic2Vzc2lvbkluZGV4IjowfSx7ImtleSI6ImdlblVzZXJOYW1lIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoiZGVmYXVsdCIsInNlc3Npb25WYWx1ZSI6InVreW5raXVzbWZAZW1haWwuY29tIiwic2Vzc2lvbkluZGV4IjoxfSx7ImtleSI6ImdlblVzZXJQYXNzIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoiZGVmYXVsdCIsInNlc3Npb25WYWx1ZSI6IkpaOFNJTG1zeUI2STNBcWpZTnI3Iiwic2Vzc2lvbkluZGV4IjoyfV0=)
