@@ -170,7 +170,7 @@ router.get('/movie', function(req,res){
                 res.json({success: true, msg: movie})
             })
     }
-    else if(req.query.review === false){
+    else if(req.query.review === undefined){
         Movie.findOne({title: req.query.title},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
                 if (err) res.json(err)
