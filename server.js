@@ -187,6 +187,7 @@ router.get('/movie', function(req,res){
                     {
                         from: "reviews",
                         localField: "title",
+                        pipeline:[{$match:{title: req.query.title}}],
                         foreignField: "title",
                         pipeline: [{$match:{title: req.query.title}}],
                         as: "movie_reviews"
