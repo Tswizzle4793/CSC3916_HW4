@@ -163,7 +163,7 @@ router.delete('/movie', function(req, res){
 //get gets a movie
 router.get('/movie', function(req,res){
     console.log("in the movie route before the timeout");
-    if(req.query.title === undefined) {
+    if(req.query.title === undefined && req.query.review === undefined) {
         console.log("in the undefined if");
         Movie.find({},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
@@ -171,7 +171,7 @@ router.get('/movie', function(req,res){
                 res.json({success: true, msg: movie})
             })
     }
-    else if(req.query.review === undefined){
+    else if(req.query.title !== undefined && req.query.review === undefined){
         console.log("review doesnt exist else if");
         Movie.findOne({title: req.query.title},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
@@ -179,7 +179,22 @@ router.get('/movie', function(req,res){
                 res.json({success: true, msg: movie})
             })
     }
-    else{
+    else if(req.query.title !== undefined && req.query.review !== undefined){
+        console.log("else if title and reviews wanted");
+        Movie.aggregate([
+            {
+                $lookup:
+                    {
+                        from: "reviews",
+                        localField: "title",
+                        foreignField: "title",
+                        pipeline: [{$match:{title: req.query.title}}],
+                        as: "movie_reviews"
+                    }
+            }
+        ]).then(values => res.json(values));
+    }
+    /*else{
         console.log("got to the else if with the review query thing")
         Movie.aggregate([
             {
@@ -193,7 +208,7 @@ router.get('/movie', function(req,res){
 
             }
         ]).then(values => res.json(values));
-    }
+    }*/
     console.log("got to the bottom");
 })
 
