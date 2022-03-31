@@ -183,13 +183,13 @@ router.get('/movie', function(req,res){
         console.log("else if title and reviews wanted");
         Movie.aggregate([
             {
+                $match:{title: req.query.title},
                 $lookup:
                     {
                         from: "reviews",
                         localField: "title",
-                        pipeline:[{$match:{title: req.query.title}}],
                         foreignField: "title",
-                        pipeline: [{$match:{title: req.query.title}}],
+                       //pipeline: [{$match:{title: req.query.title}}],
                         as: "movie_reviews"
                     }
             }
