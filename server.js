@@ -190,21 +190,14 @@ router.get('/movie', function(req,res){
         ]).then(values => res.json(values));
     }
 
-    //if they send a title and want reviews might not need this one
+    //if they want only the reviews for a certain title
     else if(req.query.title !== undefined && req.query.review !== undefined){
         console.log("else if title and reviews wanted");
         Movie.aggregate([
             {
-                //$match:{title: req.query.title},//this broke something
-                $lookup:
-                    {
-                        from: "reviews",
-                        localField: "title",
-                        foreignField: "title",
-                        pipeline: [{$match:{title: req.query.title}}],
-                        as: "movie_reviews"
-                    }
+                $match:{title: req.query.title}},{$lookup: {from: "reviews", localField: "title", foreignField: "title", pipeline: [{$match: {title: req.query.title}}], as: "movie_reviews"}
             }
+
         ]).then(values => res.json(values));
     }
 
