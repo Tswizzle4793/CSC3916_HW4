@@ -160,18 +160,11 @@ router.delete('/movie', function(req, res){
     }
 });
 
-//get gets a movie
+//gets a movie
 router.get('/movie', function(req,res){
-    console.log("in the movie route before the timeout");
-    if(req.query.title === undefined && req.query.review === undefined) {
-        console.log("in the undefined if");
-        Movie.find({},
-            {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
-                if (err) res.json(err)
-                res.json({success: true, msg: movie})
-            })
-    }
-    else if(req.query.title !== undefined && req.query.review === undefined){
+
+    //if they send a title but don't want the reviews
+    if(req.query.title !== undefined && req.query.review === undefined){
         console.log("review doesnt exist else if");
         Movie.findOne({title: req.query.title},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
@@ -179,21 +172,48 @@ router.get('/movie', function(req,res){
                 res.json({success: true, msg: movie})
             })
     }
-    else if(req.query.title !== undefined && req.query.review !== undefined){
-        console.log("else if title and reviews wanted");
+
+    //if they don't send a title but do want the reviews
+    else if(req.query.title === undefined && req.query.review !== undefined){
         Movie.aggregate([
             {
-                $match:{title: req.query.title},
                 $lookup:
                     {
                         from: "reviews",
                         localField: "title",
                         foreignField: "title",
-                       //pipeline: [{$match:{title: req.query.title}}],
+                        as: "movie_reviews"
+                    }
+
+            }
+        ]).then(values => res.json(values));
+    }
+
+    //if they send a title and want reviews might not need this one
+    else if(req.query.title !== undefined && req.query.review !== undefined){
+        console.log("else if title and reviews wanted");
+        Movie.aggregate([
+            {
+                //$match:{title: req.query.title},//this broke something
+                $lookup:
+                    {
+                        from: "reviews",
+                        localField: "title",
+                        foreignField: "title",
+                        pipeline: [{$match:{title: req.query.title}}],
                         as: "movie_reviews"
                     }
             }
         ]).then(values => res.json(values));
+    }
+
+    //send all the movies if there are no parameters
+    else{
+        Movie.find({},
+            {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
+                if (err) res.json(err)
+                res.json({success: true, msg: movie})
+            })
     }
     /*else{
         console.log("got to the else if with the review query thing")
@@ -210,19 +230,16 @@ router.get('/movie', function(req,res){
             }
         ]).then(values => res.json(values));
     }*/
-    console.log("got to the bottom");
 })
 
-
+//post a review to the db
 router.post('/reviews', function(req,res){
 
     //no error checking at this point
     var newReview = new Reviews();
     var userToken = req.body.token;
     userToken = userToken.split('.')[1];
-    //console.log("only the middle part     " + userToken +"   end of token");
     var userData = atob(userToken);
-    //console.log("decoded user data  <><><>  " + userData);
     var jsonUserData = JSON.parse(userData);
 
     newReview.title = req.query.title; //this is what will be used to track what movie the review belongs to
@@ -230,11 +247,20 @@ router.post('/reviews', function(req,res){
     newReview.review = req.body.review;
     newReview.rating = req.body.rating;
 
-    newReview.save(function(err, newReview) {
+    newReview.save(function(err) {
         if(err) res.send(err);
         res.json({success: true, msg: "Review Added"})
     });
 
+})
+
+//get all the reviews
+router.get('/reviews', function(req,res){
+    Reviews.find({},
+        {_id: 0, title: 1, name: 1, review: 1, rating: 1 }, function (err, review) {
+            if (err) res.json(err)
+            res.json({success: true, msg: review})
+        })
 })
 
 
