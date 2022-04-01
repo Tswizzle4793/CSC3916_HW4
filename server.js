@@ -174,8 +174,7 @@ router.get('/movie', function(req,res){
     }
 
     //if they don't send a title but do want the reviews
-    //else if(req.query.title === undefined && req.query.review !== undefined){
-    else if(req.query.title === undefined && req.query.review === true){
+    else if(req.query.title === undefined && req.query.review !== undefined){
         Movie.aggregate([
             {
                 $lookup:
