@@ -174,7 +174,8 @@ router.get('/movie', function(req,res){
     }
 
     //if they don't send a title but do want the reviews
-    else if(req.query.title === undefined && req.query.review !== undefined){
+    //else if(req.query.title === undefined && req.query.review !== undefined){
+    else if(req.query.title === undefined && req.query.review === true){
         Movie.aggregate([
             {
                 $lookup:
@@ -207,7 +208,7 @@ router.get('/movie', function(req,res){
         ]).then(values => res.json(values));
     }
 
-    //send all the movies if there are no parameters
+    //send all the movies with no reviews if there are no parameters
     else{
         Movie.find({},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
@@ -215,21 +216,6 @@ router.get('/movie', function(req,res){
                 res.json({success: true, msg: movie})
             })
     }
-    /*else{
-        console.log("got to the else if with the review query thing")
-        Movie.aggregate([
-            {
-                $lookup:
-                    {
-                        from: "reviews",
-                        localField: "title",
-                        foreignField: "title",
-                        as: "movie_reviews"
-                    }
-
-            }
-        ]).then(values => res.json(values));
-    }*/
 })
 
 //post a review to the db
