@@ -168,7 +168,9 @@ router.get('/movie', function(req,res){
         Movie.findOne({title: req.query.title},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
                 if (err) res.send(err)
-                res.json({success: true, msg: movie})
+                else if(movie !== null){
+                    res.json({success: true, msg: movie})
+                }
             })
     }
 
