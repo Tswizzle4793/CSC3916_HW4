@@ -167,7 +167,7 @@ router.get('/movie', function(req,res){
     if(req.query.title !== undefined && req.query.review === undefined){
         Movie.findOne({title: req.query.title},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
-                if (err) res.json(err)
+                if (err) res.send(err)
                 res.json({success: true, msg: movie})
             })
     }
@@ -202,7 +202,7 @@ router.get('/movie', function(req,res){
     else{
         Movie.find({},
             {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
-                if (err) res.json(err)
+                if (err) res.send(err)
                 res.json({success: true, msg: movie})
             })
     }
@@ -241,7 +241,7 @@ router.post('/reviews', function(req,res){
 router.get('/reviews', function(req,res){
     Reviews.find({},
         {_id: 0, title: 1, name: 1, review: 1, rating: 1 }, function (err, review) {
-            if (err) res.json(err)
+            if (err) res.send(err)
             res.json({success: true, msg: review})
         })
 })
