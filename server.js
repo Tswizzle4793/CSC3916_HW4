@@ -188,12 +188,11 @@ router.get('/movies', function(req,res){
                         foreignField: "title",
                         as: "movie_reviews",
 
-                    },
-                $avg: 'rating'
+                    }
 
-            }//,
-            //{$unwind: '$movie_reviews'},
-            //{$group: {_id: 'rating', avg: {$avg : 'rating'}}}
+            },
+            {$unwind: '$movie_reviews'},
+            {"$group": {_id: '$review._id', avgRating: {$avg : '$rating'}}}
         ]).then(values => res.json(values));
     }
 
