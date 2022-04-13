@@ -169,7 +169,8 @@ router.get('/movies', function(req,res){
             {_id: 1, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1, imageUrl: 1}, function (err, movie) {
                 if (err) res.send(err)
                 else if(movie !== null){
-                    res.json({success: true, msg: movie})
+                    //res.json({success: true, msg: movie})
+                    res.json(movie)
                 }
                 else{
                     res.json({success: false, msg: "Movie not in database"})
