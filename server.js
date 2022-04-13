@@ -165,7 +165,7 @@ router.get('/movies', function(req,res){
 
     //if they send a title but don't want the reviews
     if(req.query.title !== undefined && req.query.review === undefined){
-        Movie.findOne({title: req.query.title},
+        Movie.findOne(/*{title: req.query.title}*/{_id: req.query.title},
             {_id: 1, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1, imageUrl: 1}, function (err, movie) {
                 if (err) res.send(err)
                 else if(movie !== null){
