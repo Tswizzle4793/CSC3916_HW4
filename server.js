@@ -187,8 +187,9 @@ router.get('/movies', function(req,res){
                         localField: "title",
                         foreignField: "title",
                         as: "movie_reviews",
-                        avgRating: {$avg: 'rating'}
-                    }
+
+                    },
+                avgRating: {$avg: 'rating'}
 
             }//,
             //{$unwind: '$movie_reviews'},
