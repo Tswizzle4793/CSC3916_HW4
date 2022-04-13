@@ -186,7 +186,7 @@ router.get('/movies', function(req,res){
                         from: "reviews",
                         localField: "title",
                         foreignField: "title",
-                        pipeline: [{$group: {_id: "title", avgRating: {$avg: "rating"}}}],
+                        pipeline: [{$unwind: '$movie_reviews'},{$group: {_id: "title", avgRating: {$avg: "rating"}}}],
                         as: "movie_reviews",
 
                     }
