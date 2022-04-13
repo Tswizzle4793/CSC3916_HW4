@@ -166,7 +166,7 @@ router.get('/movies', function(req,res){
     //if they send a title but don't want the reviews
     if(req.query.title !== undefined && req.query.review === undefined){
         Movie.findOne({title: req.query.title},
-            {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1, imageUrl: 1}, function (err, movie) {
+            {_id: 1, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1, imageUrl: 1}, function (err, movie) {
                 if (err) res.send(err)
                 else if(movie !== null){
                     res.json({success: true, msg: movie})
@@ -187,6 +187,10 @@ router.get('/movies', function(req,res){
                         localField: "title",
                         foreignField: "title",
                         as: "movie_reviews"
+                    },
+                $group:
+                    {
+                        avgRating: {$avg:"rating"}
                     }
 
             }
