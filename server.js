@@ -161,7 +161,7 @@ router.delete('/movie', function(req, res){
 });
 
 //gets a movie
-router.get('/movie', function(req,res){
+router.get('/movies', function(req,res){
 
     //if they send a title but don't want the reviews
     if(req.query.title !== undefined && req.query.review === undefined){
