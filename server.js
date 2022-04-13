@@ -189,7 +189,8 @@ router.get('/movies', function(req,res){
                         as: "movie_reviews"
                     }
 
-            }
+            },
+            {$group: {avgRating: {$avg : 'ratings'}}}
         ]).then(values => res.json(values));
     }
 
