@@ -186,13 +186,14 @@ router.get('/movies', function(req,res){
                         from: "reviews",
                         localField: "title",
                         foreignField: "title",
+                        pipeline: [{$group: {_id: "title", avgRating: {$avg: "rating"}}}],
                         as: "movie_reviews",
 
                     }
 
-            },
-            {$unwind: '$movie_reviews'},
-            {$group: {_id: "$movie.title", avgRating: {$avg : "$reviews.rating"}}}
+            }//,
+            //{$unwind: '$movie_reviews'},
+            //{$group: {_id: "$movie.title", avgRating: {$avg : "$reviews.rating"}}}
         ]).then(values => res.json(values));
     }
 
