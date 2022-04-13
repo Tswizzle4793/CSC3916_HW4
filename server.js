@@ -202,7 +202,7 @@ router.get('/movies', function(req,res){
     else if(req.query.title !== undefined && req.query.review !== undefined){
         Movie.aggregate([
             {
-                $match:{_id: "62477b4b4ff2cb0004eb531c"/*req.query.title*/}},{$lookup: {from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}
+                $match:{_id: 'ObjectId("62477b4b4ff2cb0004eb531c")'/*req.query.title*/}},{$lookup: {from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}
             }
 
         ]).then(values => res.json(values));
