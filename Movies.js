@@ -19,7 +19,8 @@ var MovieSchema = new Schema({
     genre: {type: String, required: true},
     actorOne: { type: Array, required: true},
     actorTwo: { type: Array, required: true},
-    actorThree: { type: Array, required: true}
+    actorThree: { type: Array, required: true},
+    imageUrl: {type: String}
 
 });
 
