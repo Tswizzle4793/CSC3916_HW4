@@ -206,7 +206,7 @@ router.get('/movies', function(req,res){
     //send all the movies with no reviews if there are no parameters
     else{
         Movie.find({},
-            {_id: 0, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1}, function (err, movie) {
+            {_id: 1, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1, imageUrl:1}, function (err, movie) {
                 if (err) res.send(err)
                 res.json({success: true, msg: movie})
             })
