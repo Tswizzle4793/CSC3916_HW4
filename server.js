@@ -189,7 +189,7 @@ router.get('/movies', function(req,res){
                         as: "movie_reviews",
 
                     },
-                avgRating: {$avg: 'rating'}
+                $avg: 'rating'
 
             }//,
             //{$unwind: '$movie_reviews'},
