@@ -200,6 +200,7 @@ router.get('/movies', function(req,res){
 
     //if they want only the reviews for a certain title
     else if(req.query.title !== undefined && req.query.review !== undefined){
+        console.log(req.query.title);
         Movie.aggregate([
             {
                 $match:{_id: req.query.title}},{$lookup: {from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}
