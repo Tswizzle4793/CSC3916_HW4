@@ -209,7 +209,7 @@ router.get('/movies', function(req,res){
                         localField: "title",
                         foreignField: "title",
                         //pipeline: [{$group: {_id: "$title", avgRating: {$avg: "$rating"}}}],
-                        as: "movie_reviews",
+                        as: "test_code"
 
                     }
             }
