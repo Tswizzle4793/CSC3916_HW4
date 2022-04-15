@@ -205,13 +205,10 @@ router.get('/movies', function(req,res){
           else
             {
                 Movie.aggregate([{$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}}]).then(function(values){
-                    console.log(values[0]);
-                    for(let i = 0; i < values.length; i++){
-                        console.log(values[i]);
-                        if(values[i]._id === movie._id){
-                            res.send({msg:values[i]})
-                        }
-                    }
+                    //console.log(values[0]);
+                    let data = [];
+                    data.push(values)
+                    console.log(data);
 
                     //res.json({msg:values})
                 });
