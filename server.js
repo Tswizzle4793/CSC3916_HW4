@@ -219,22 +219,22 @@ router.get('/movies', function(req,res){
                     for(let i = 0; i < data.length; i++)
                     {
                         console.log(i + "<><><><><><><><><><><>");
+                        console.log(data[i].title);
+                        //let jsData = JSON.parse(data[i]);
+                        //if(jsData._id === movie._id){
+                            //console.log(jsData.title + " 88888888888888888888888888888888888888888888888");
+                        //}
 
-                        let jsData = JSON.parse(data[i]);
-                        if(jsData._id === movie._id){
-                            console.log(jsData.title + " 88888888888888888888888888888888888888888888888");
-                        }
-                        
                         //console.log(data[i]);
                         //if(JSON.parse(data[i]) === movie){
                            // console.log(data[i]);
                             //res.json({msg: data[i]});
                         //}
-                        else{
-                            console.log("in the else");
-                            console.log(data[2]);
+                        //else{
+                            //console.log("in the else");
+                            //console.log(data[2]);
                             //res.json({msg: data[2]});
-                        }
+                        //}
                     }
 
                     //res.json({msg:values})
