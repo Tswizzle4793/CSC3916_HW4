@@ -208,7 +208,14 @@ router.get('/movies', function(req,res){
                     //console.log(values[0]);
                     let data = [];
                     data.push(values)
-                    console.log(data);
+                    //console.log(data);
+                    for(var i = 0; i < data.length; i++)
+                    {
+                        console.log(data[i]);
+                        if(data[i]._id === movies._id){
+                            res.json({msg: data[i]})
+                        }
+                    }
 
                     //res.json({msg:values})
                 });
