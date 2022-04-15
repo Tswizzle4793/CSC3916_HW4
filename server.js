@@ -220,6 +220,11 @@ router.get('/movies', function(req,res){
                     {
                         console.log(i + "<><><><><><><><><><><>");
                         console.log(data[i].title);
+
+                        if(data[i].title === movie.title)
+                        {
+                            res.json({msg: data[i]});
+                        }
                         //let jsData = JSON.parse(data[i]);
                         //if(jsData._id === movie._id){
                             //console.log(jsData.title + " 88888888888888888888888888888888888888888888888");
