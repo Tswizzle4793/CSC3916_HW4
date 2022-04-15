@@ -208,11 +208,11 @@ router.get('/movies', function(req,res){
                         from: "reviews",
                         localField: "title",
                         foreignField: "title",
+                        pipeline: [{$match: {_id: req.query.title}}],
                         //pipeline: [{$group: {_id: "$title", avgRating: {$avg: "$rating"}}}],
                         as: "test_code"
 
-                    },
-                $match:{_id: req.query.title}
+                    }
             }
 
         ]).then(values => res.json(values));
