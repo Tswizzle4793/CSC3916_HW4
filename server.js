@@ -208,6 +208,7 @@ router.get('/movies', function(req,res){
                     //console.log(values[0]);
                     let data = [];
                     data.push(values)
+                    console.log(data[3] + "$$$$$$$$$$$$$$$$$$$$$$$$");
                     //console.log(data);
                     for(let i = 0; i < data.length; i++)
                     {
@@ -215,7 +216,7 @@ router.get('/movies', function(req,res){
                         //console.log(data[i]);
                         if(data[i]._id === movie._id){
                             console.log(data[i]);
-                            res.json({msg: data[i]})
+                            res.json({msg: data[i]});
                         }
                     }
 
