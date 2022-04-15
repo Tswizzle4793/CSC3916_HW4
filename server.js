@@ -211,7 +211,7 @@ router.get('/movies', function(req,res){
                     as: "test_code"
                 }
             }]).then(values => res.json(values));
-        }
+        })
     }
 
     //send all the movies with no reviews if there are no parameters
