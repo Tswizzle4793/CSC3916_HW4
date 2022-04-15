@@ -204,9 +204,7 @@ router.get('/movies', function(req,res){
           if(err) {res.send(err);}
           else
             {
-                let values = [Movie.aggregate([{$lookup:{from: "reviews", localField: movie.title, foreignField: "title", as: "movie_reviews"}}])]
-                //values.getElementById
-                console.log(values[0]);
+                Movie.aggregate([{$lookup:{from: "reviews", localField: movie.title, foreignField: "title", as: "movie_reviews"}},{$filter:{_id: movie._id}}]).then(values => res.json({msg:values}));
             }
             //res.json({msg:movie});
         })
