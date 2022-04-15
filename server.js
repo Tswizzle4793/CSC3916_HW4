@@ -164,7 +164,7 @@ router.delete('/movie', function(req, res){
 router.get('/movies', function(req,res){
 
     //if they send a title but don't want the reviews
-    if(req.query.title !== undefined && req.query.review === undefined){
+    if(req.query.title !== undefined && req.query.reviews === undefined){
         Movie.findOne(/*{title: req.query.title}*/{_id: req.query.title},
             {_id: 1, title: 1, year: 1, genre: 1, actorOne: 1, actorTwo: 1, actorThree: 1, imageUrl: 1}, function (err, movie) {
                 if (err) res.send(err)
@@ -179,7 +179,7 @@ router.get('/movies', function(req,res){
     }
 
     //if they don't send a title but do want the reviews
-    else if(req.query.title === undefined && req.query.review !== undefined){
+    else if(req.query.title === undefined && req.query.reviews !== undefined){
         Movie.aggregate([
             {
                 $lookup:
@@ -199,7 +199,7 @@ router.get('/movies', function(req,res){
     }
 
     //if they want only the reviews for a certain title
-    else if(req.query.title !== undefined && req.query.review !== undefined){
+    else if(req.query.title !== undefined && req.query.reviews !== undefined){
         Movie.aggregate([
             {
                 $match:{_id: req.query.title}},{$lookup: {from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}
