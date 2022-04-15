@@ -212,7 +212,7 @@ router.get('/movies', function(req,res){
                     for(var i = 0; i < data.length; i++)
                     {
                         console.log(data[i]);
-                        if(data[i]._id === movies._id){
+                        if(data[i]._id === movie._id){
                             res.json({msg: data[i]})
                         }
                     }
