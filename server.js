@@ -226,7 +226,8 @@ router.get('/movies', function(req,res){
                         }
                         else{
                             console.log("in the else");
-                            res.json({msg: data[2]});
+                            console.log(data[2]);
+                            //res.json({msg: data[2]});
                         }
                     }
 
