@@ -201,17 +201,7 @@ router.get('/movies', function(req,res){
     //if they want only the reviews for a certain title
     else if(req.query.title !== undefined && req.query.review !== undefined){
 
-        Movie.findOne({_id: req.body.title}, function(err,movie) {
-            if (err) res.send(err)
-            Movie.aggregate([{
-                $lookup: {
-                    from: "reviews",
-                    localField: "title",
-                    foreignField: movie.title,
-                    as: "test_code"
-                }
-            }]).then(values => res.json(values));
-        })
+        console.log("everything do be broken");
     }
 
     //send all the movies with no reviews if there are no parameters
