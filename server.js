@@ -220,7 +220,7 @@ router.get('/movies', function(req,res){
                         let revData = [];
 
                         for(let rj in revValues){
-                            revData.push(revValues);
+                            revData.push(revValues[rj]);
                         }
                         console.log(data[0]._id + "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
                         console.log(revData[0] + "><><><><><><><><><><><><><><><");
