@@ -204,10 +204,8 @@ router.get('/movies', function(req,res){
           else
             {
                 Movie.aggregate([
-                    {$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}},
-                    {$unwind: "$movie_reviews"}, {$group:{_id:"$title", avgRating:{$avg: "$movie_reviews.rating"}}}
+                    {$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}}
                 ]).then(function(values){
-                    console.log(values + "<><><><><><><><><><><><><><><>");
                     let data = [];
 
                     for(let j in values){
@@ -224,6 +222,31 @@ router.get('/movies', function(req,res){
                     }
 
                 });
+
+
+
+                Movie.aggregate([
+                    {$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}},
+                    {$unwind: "$movie_reviews"}, {$group:{_id:"$title", avgRating:{$avg: "$movie_reviews.rating"}}}
+                ]).then(function(revValues){
+                   let revData = [];
+
+                   for(let j in revValues){
+                       revData.push(revValues[j]);
+                   }
+                    console.log(revData + "<><><><><><><><><><><><><><><>");
+
+                    for(let i = 0; i < revData.length; i++){
+                       if(revData[i]._id === movie.title){
+                           res.json({msg:revData[i]});
+                       }
+                   }
+
+                });
+
+
+
+
             }
         })
 
