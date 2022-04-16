@@ -280,7 +280,7 @@ router.post('/reviews', function(req,res){
         if(err) res.send(err)
         else if(movie){
             var newReview = new Reviews();
-            var userToken = req.body.token;
+            var userToken = req.query.token;
             userToken = userToken.split('.')[1];
             var userData = atob(userToken);
             var jsonUserData = JSON.parse(userData);
