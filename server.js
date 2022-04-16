@@ -221,6 +221,7 @@ router.get('/movies', function(req,res){
                         for(let rj in revValues){
                             revData.push(revValues);
                         }
+                        console.log(data[0] + "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
                         console.log(revData[0] + "><><><><><><><><><><><><><><><");
 
                         for(let i = 0; i < data.length; i++)
