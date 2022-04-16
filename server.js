@@ -192,8 +192,7 @@ router.get('/movies', function(req,res){
 
                     }
 
-            },
-            {$unwind: "$movie_reviews"}, {$group:{_id:"$title", avgRating:{$avg: "$movie_reviews.rating"}}}
+            }
         ]).then(values => res.json(values));
     }
 
@@ -205,7 +204,7 @@ router.get('/movies', function(req,res){
             {
                 Movie.aggregate([
                     {$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}}
-                ]).then(function(values){
+                ]).then(
 
 
                     Movie.aggregate([
@@ -237,10 +236,10 @@ router.get('/movies', function(req,res){
                             }
 
                         }
-                    });
+                    })
 
-                });
-                
+            )
+
             }
         })
 
