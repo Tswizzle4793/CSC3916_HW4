@@ -192,9 +192,8 @@ router.get('/movies', function(req,res){
 
                     }
 
-            }//,
-            //{$unwind: '$movie_reviews'},
-            //{$group: {_id: "$title", avgRating: {$avg : "$reviews.rating"}}}
+            },
+            {$unwind: "$movie_reviews"}, {$group:{_id:null, avgRating:{$avg: "$movie_reviews.rating"}}}
         ]).then(values => res.json(values));
     }
 
@@ -204,64 +203,28 @@ router.get('/movies', function(req,res){
           if(err) {res.send(err);}
           else
             {
-                Movie.aggregate([{$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}}]).then(function(values){
-                    //console.log(values[0]);
+                Movie.aggregate([
+                    {$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}}
+                ]).then(function(values){
                     let data = [];
-                    //let jsData = JSON.parse(values);
-                    //data.push(jsData)
-                    for(var j in values){
+
+                    for(let j in values){
                         data.push(values[j]);
                     }
 
-
-                    console.log(data[3] + "$$$$$$$$$$$$$$$$$$$$$$$$");
-                    //console.log(data);
                     for(let i = 0; i < data.length; i++)
                     {
-                        console.log(i + "<><><><><><><><><><><>");
-                        console.log(data[i].title);
-
                         if(data[i].title === movie.title)
                         {
                             res.json({msg: data[i]});
                         }
-                        //let jsData = JSON.parse(data[i]);
-                        //if(jsData._id === movie._id){
-                            //console.log(jsData.title + " 88888888888888888888888888888888888888888888888");
-                        //}
 
-                        //console.log(data[i]);
-                        //if(JSON.parse(data[i]) === movie){
-                           // console.log(data[i]);
-                            //res.json({msg: data[i]});
-                        //}
-                        //else{
-                            //console.log("in the else");
-                            //console.log(data[2]);
-                            //res.json({msg: data[2]});
-                        //}
                     }
 
-                    //res.json({msg:values})
                 });
             }
-            //res.json({msg:movie});
         })
-        /*Movie.aggregate([
-            {
-                //$match:{_id: req.query.title}},{$lookup: {from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}
-                $lookup:
-                    {
-                        from: "reviews",
-                        localField: "title",
-                        foreignField: "title",
-                        //pipeline: [{$group: {_id: "$title", avgRating: {$avg: "$rating"}}}],
-                        as: "test_code"
 
-                    }
-            }
-
-        ]).then(values => res.json(values));*/
     }
 
     //send all the movies with no reviews if there are no parameters
