@@ -204,7 +204,7 @@ router.get('/movies', function(req,res){
           else
             {
                 Movie.aggregate([
-                    {$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}},{$unwind: "$movie_reviews"}, {$group:{_id:null, avgRating:{$avg: "$movie_reviews.rating"}}}
+                    {$lookup:{from: "reviews", localField: "title", foreignField: "title", as: "movie_reviews"}}
                 ]).then(function(values){
                     let data = [];
 
